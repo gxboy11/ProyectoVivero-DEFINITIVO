@@ -1,0 +1,58 @@
+﻿@model List<Proveedor>
+@{
+    ViewData["Title"] = "Proveedor";
+}
+
+<div class="container">
+    <h1 class="mt-4"><i class="bi bi-person"></i> Proveedor</h1>
+    <a asp-controller="Proveedores" asp-action="Insert" class="btn btn-success mb-3">
+        <i class="bi bi-person-plus"></i> Agregar Cliente
+    </a>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Direccion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cliente in Model)
+            {
+                <tr>
+                    <td>@cliente.NombreProveedor</td>
+                    <td>@cliente.CorreoProveedor</td>
+                    <td>@cliente.DireccionProveedor</td>
+                    <td>
+                        <button type="button" class="btn btn-primary">
+                            <i class="bi bi-pencil"></i> Editar
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="Delete(@cliente.IdProveedor)">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    function Delete(id) {
+        $.ajax({
+            url: "/api/v1/proveedores/delete/" + id,
+            method: "DELETE",
+            dataType: "json",
+            contentType: "application/json"
+        }).done(function (response) {
+            if (response.success) {
+                toastr.success("El proveedor ha sido eliminado correctamente");
+                location.reload(); // Actualizar la página después de eliminar
+            }
+            else {
+                toastr.error(response.errorMessage);
+            }
+        });
+    }
+</script>

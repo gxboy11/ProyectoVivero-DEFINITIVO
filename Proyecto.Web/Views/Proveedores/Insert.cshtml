@@ -1,0 +1,53 @@
+﻿@using Proyecto.Domain.InputModels.Proveedor;
+@model NuevoProveedor
+@{
+    ViewData["Title"] = "Añadir Proveedor";
+}
+
+<div class="container-fluid" style="max-width: 924px;">
+    <div class="row">
+        <div class="col-12">
+            <h1><i class="fa-solid fa-person-circle-plus"></i> Add Proveedores</h1>
+        </div>
+    </div>
+    <form method="post">
+        <fieldset>
+            <div class="table">
+                <div class="row">
+                    <div class="col-12 text-danger form-text" asp-validation-summary="ModelOnly"></div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <label asp-for="@Model.NombreProveedor" class="form-label"></label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="@Model.NombreProveedor" class="form-control">
+                        <span asp-validation-for="@Model.NombreProveedor" class="text-danger form-text"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <label asp-for="@Model.CorreoProveedor" class="form-label"></label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="@Model.CorreoProveedor" class="form-control">
+                        <span asp-validation-for="@Model.CorreoProveedor" class="text-danger form-text"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <label asp-for="@Model.DireccionProveedor" class="form-label"></label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="@Model.DireccionProveedor" class="form-control">
+                        <span asp-validation-for="@Model.DireccionProveedor" class="text-danger form-text"></span>
+                    </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-outline-success"><i class="fa-solid fa-user-shield"></i>Agregar</button>
+                        <a asp-asp-controller="Proveedores" asp-action="Index" class="btn btn-outline-danger">Cancelar</a>
+                    </div>
+                </div>
+        </fieldset>
+    </form>
+</div>

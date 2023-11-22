@@ -1,0 +1,71 @@
+﻿@using Proyecto.Domain.InputModels.Producto;
+@model NuevoProducto
+@{
+    ViewData["Title"] = "Añadir Producto";
+}
+
+<div class="container-fluid" style="max-width: 924px;">
+    <div class="row">
+        <div class="col-12">
+            <h1><i class="fa-solid fa-person-circle-plus"></i> Add Productos</h1>
+        </div>
+    </div>
+    <form method="post">
+        <fieldset>
+            <div class="table">
+                <div class="row">
+                    <div class="col-12 text-danger form-text" asp-validation-summary="ModelOnly"></div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <label asp-for="@Model.NombreProducto" class="form-label"></label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="@Model.NombreProducto" class="form-control">
+                        <span asp-validation-for="@Model.NombreProducto" class="text-danger form-text"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <label asp-for="@Model.DescripcionProducto" class="form-label"></label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="@Model.DescripcionProducto" class="form-control">
+                        <span asp-validation-for="@Model.DescripcionProducto" class="text-danger form-text"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <label asp-for="@Model.IdCategoria" class="form-label"></label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="@Model.IdCategoria" class="form-control">
+                        <span asp-validation-for="@Model.IdCategoria" class="text-danger form-text"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <label asp-for="@Model.PrecioProducto" class="form-label"></label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="@Model.PrecioProducto" class="form-control">
+                        <span asp-validation-for="@Model.PrecioProducto" class="text-danger form-text"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <label asp-for="@Model.ImagenProducto" class="form-label"></label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="@Model.ImagenProducto" class="form-control">
+                        <span asp-validation-for="@Model.ImagenProducto" class="text-danger form-text"></span>
+                    </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-outline-success"><i class="fa-solid fa-user-shield"></i>Agregar</button>
+                        <a asp-asp-controller="Productos" asp-action="Index" class="btn btn-outline-danger">Cancelar</a>
+                    </div>
+                </div>
+        </fieldset>
+    </form>
+</div>

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ConfigurationModels\**" />
+    <Compile Remove="EntityModels\Plates\**" />
+    <Compile Remove="PlainModels\**" />
+    <EmbeddedResource Remove="ConfigurationModels\**" />
+    <EmbeddedResource Remove="EntityModels\Plates\**" />
+    <EmbeddedResource Remove="PlainModels\**" />
+    <None Remove="ConfigurationModels\**" />
+    <None Remove="EntityModels\Plates\**" />
+    <None Remove="PlainModels\**" />
+  </ItemGroup>
+
+</Project>

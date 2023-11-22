@@ -1,0 +1,68 @@
+﻿@using Proyecto.Domain.DTOs.Colaboradores
+@model List<Colaborador>
+@{
+    ViewData["Title"] = "Colaboradores";
+}
+
+<div class="container">
+    <h1 class="mt-4"><i class="bi bi-person"></i> Colaboradors</h1>
+    <a asp-controller="Colaboradores" asp-action="Insert" class="btn btn-success mb-3">
+        <i class="bi bi-person-plus"></i> Agregar Colaborador
+    </a>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Cedula</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Correo Electrónico</th>
+                <th>Número Teléfono</th>
+                <th>Dirección</th>
+                <th>Salario</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var colaborador in Model)
+            {
+                <tr>
+                    <td>@colaborador.CedulaColaborador</td>
+                    <td>@colaborador.NombreColaborador</td>
+                    <td>@colaborador.ApellidoColaborador</td>
+                    <td>@colaborador.CorreoElectronico</td>
+                    <td>@colaborador.NumeroTelefono</td>
+                    <td>@colaborador.DireccionColaborador</td>
+                    <td>@colaborador.SalarioColaborador</td>
+                    <td>
+                        <button type="button" class="btn btn-primary">
+                            <i class="bi bi-pencil"></i> Editar
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="Delete(@colaborador.Id)">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    function Delete(id) {
+        $.ajax({
+            url: "/api/v1/Colaboradores/delete/" + id,
+            method: "DELETE",
+            dataType: "json",
+            contentType: "application/json"
+        }).done(function (response) {
+            if (response.success) {
+                toastr.success("Colaborador ha sido eliminado correctamente");
+                location.reload(); // Actualizar la página después de eliminar
+            }
+            else {
+                toastr.error(response.errorMessage);
+            }
+        });
+    }
+</script>

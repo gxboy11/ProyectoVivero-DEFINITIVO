@@ -1,0 +1,61 @@
+﻿@using Proyecto.Domain.DTOs.Usuarios
+@model List<Usuario>
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<div class="container">
+    <h1 class="mt-4"><i class="bi bi-person"></i> Usuarios</h1>
+    <a asp-controller="Usuarios" asp-action="Insert" class="btn btn-success mb-3">
+        <i class="bi bi-person-plus"></i> Agregar Usuario
+    </a>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nombre Usuario</th>
+                <th>Nombre Cliente</th>
+                <th>Nombre Colaborador</th>
+                <th>Admin</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.NombreUsuario</td>
+                    <td>@user.IdCliente</td>
+                    <td>@user.IdColaborador</td>
+                    <td>@user.IsAdmin</td>
+                    <td>
+                        <button type="button" class="btn btn-primary">
+                            <i class="bi bi-pencil"></i> Editar
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="Delete(@user.IdUsuario)">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    function Delete(id) {
+        $.ajax({
+            url: "/api/v1/usuarios/delete/" + id,
+            method: "DELETE",
+            dataType: "json",
+            contentType: "application/json"
+        }).done(function (response) {
+            if (response.success) {
+                toastr.success("Usuario ha sido eliminado correctamente");
+                location.reload(); // Actualizar la página después de eliminar
+            }
+            else {
+                toastr.error(response.errorMessage);
+            }
+        });
+    }
+</script>

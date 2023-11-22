@@ -1,0 +1,65 @@
+﻿@model List<Cliente>
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+<div class="container">
+    <h1 class="mt-4"><i class="bi bi-person"></i> Clientes</h1>
+    <a asp-controller="Clientes" asp-action="Insert" class="btn btn-success mb-3">
+        <i class="bi bi-person-plus"></i> Agregar Cliente
+    </a>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Cedula</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Correo Electrónico</th>
+                <th>Número Teléfono</th>
+                <th>Dirección</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cliente in Model)
+            {
+                <tr>
+                    <td>@cliente.CedulaCliente</td>
+                    <td>@cliente.NombreCliente</td>
+                    <td>@cliente.ApellidoCliente</td>
+                    <td>@cliente.CorreoElectronico</td>
+                    <td>@cliente.NumeroTelefono</td>
+                    <td>@cliente.DireccionCliente</td>
+                    <td>
+                        <button type="button" class="btn btn-primary">
+                            <i class="bi bi-pencil"></i> Editar
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="Delete(@cliente.Id)">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    function Delete(id) {
+        $.ajax({
+            url: "/api/v1/clientes/delete/" + id,
+            method: "DELETE",
+            dataType: "json",
+            contentType: "application/json"
+        }).done(function (response) {
+            if (response.success) {
+                toastr.success("Cliente ha sido eliminado correctamente");
+                location.reload(); // Actualizar la página después de eliminar
+            }
+            else {
+                toastr.error(response.errorMessage);
+            }
+        });
+    }
+</script>

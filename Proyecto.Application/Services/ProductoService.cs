@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 namespace Proyecto.Application.Services
 {
     public class ProductoService : IProductoService
+
+
     {
         private readonly IProductoRepository _repository;
 
@@ -26,7 +28,7 @@ namespace Proyecto.Application.Services
             return new Producto(producto.IdProducto, producto.NombreProducto, producto.DescripcionProducto,
                 producto.IdCategoria, producto.PrecioProducto, producto.ImagenProducto);
         }
-        
+
         public List<Producto> List()
         {
             return _repository.GetAll().ToList()
@@ -36,7 +38,7 @@ namespace Proyecto.Application.Services
 
         public bool Insert(NuevoProducto newProducto)
         {
-            Entities.Producto producto = new Entities.Producto(newProducto.NombreProducto, newProducto.DescripcionProducto, newProducto.IdCategoria, newProducto.PrecioProducto, newProducto.ImagenProducto);
+            CarritoItem producto = new Entities.Producto(newProducto.NombreProducto, newProducto.DescripcionProducto, newProducto.IdCategoria, newProducto.PrecioProducto, newProducto.ImagenProducto);
             _repository.Insert(producto);
             _repository.Save();
             return true;
@@ -44,7 +46,7 @@ namespace Proyecto.Application.Services
 
         public bool Update(ProductoExistente productoExistente)
         {
-            Entities.Producto producto = _repository.Get(s => s.IdProducto == productoExistente.IdProducto);
+            CarritoItem producto = _repository.Get(s => s.IdProducto == productoExistente.IdProducto);
             producto.Update(productoExistente.NombreProducto, productoExistente.DescripcionProducto, productoExistente.IdCategoria, productoExistente.PrecioProducto, productoExistente.ImagenProducto);
             _repository.Update(producto);
             _repository.Save();
@@ -53,7 +55,7 @@ namespace Proyecto.Application.Services
 
         public bool Delete(int id)
         {
-            Entities.Producto producto = _repository.Get(s => s.IdProducto == id);
+            CarritoItem producto = _repository.Get(s => s.IdProducto == id);
             _repository.Delete(producto);
             _repository.Save();
             return true;

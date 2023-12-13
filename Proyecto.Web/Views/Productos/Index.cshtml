@@ -36,6 +36,9 @@
                         <button type="button" class="btn btn-danger" onclick="Delete(@Producto.IdProducto)">
                             <i class="bi bi-trash"></i> Eliminar
                         </button>
+                        <button type="button" class="btn btn-success" onclick="AddToCart(@Producto.IdProducto)">
+                            <i class="bi bi-cart-plus"></i> Agregar al Carrito
+                        </button>
                     </td>
                 </tr>
             }
@@ -59,5 +62,26 @@
                 toastr.error(response.errorMessage);
             }
         });
+    }
+</script>
+
+<script type="text/javascript">
+    function AddToCart(productId) {
+        var cantidad = prompt("Ingrese la cantidad:");
+
+        if (cantidad !== null) {
+            $.ajax({
+                url: "/Productos/AddToCart?productId=" + productId + "&cantidad=" + cantidad,
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json"
+            }).done(function (response) {
+                if (response.success) {
+                    toastr.success("Producto agregado al carrito correctamente");
+                } else {
+                    toastr.error("Error al agregar el producto al carrito");
+                }
+            });
+        }
     }
 </script>

@@ -19,5 +19,8 @@ namespace Proyecto.Application.Contracts
         bool Update(ProductoExistente productoExistente);
 
         bool Delete(int id);
+
+        Producto GetDetails(int id);
+
     }
 }

@@ -18,4 +18,8 @@
     <None Remove="PlainModels\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="EntityModels\Carrito\" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-﻿using Proyecto.Domain.DTOs.Productos;
+﻿using Proyecto.Domain.EntityModels.Proveedores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Proyecto.Application.Contracts.Repositories
 {
-    public interface IProductoRepository : IRepository<CarritoItem>
+    public interface IProveedorRepository : IRepository<Proveedor>
     {
     }
 }

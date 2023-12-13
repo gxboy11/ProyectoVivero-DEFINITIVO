@@ -8,16 +8,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Proyecto.Application.Services
 {
     public class ProductoService : IProductoService
     {
         private readonly IProductoRepository _repository;
+        private readonly IHostingEnvironment _webHostEnvironment;
 
-        public ProductoService(IProductoRepository _repository)
+        public ProductoService(IProductoRepository _repository, IHostingEnvironment _webHostEnvironment)
         {
             this._repository = _repository;
+            this._webHostEnvironment = _webHostEnvironment;
         }
 
         public Producto Get(int id)
@@ -26,7 +30,7 @@ namespace Proyecto.Application.Services
             return new Producto(producto.IdProducto, producto.NombreProducto, producto.DescripcionProducto,
                 producto.IdCategoria, producto.PrecioProducto, producto.ImagenProducto);
         }
-        
+
         public List<Producto> List()
         {
             return _repository.GetAll().ToList()
@@ -36,7 +40,9 @@ namespace Proyecto.Application.Services
 
         public bool Insert(NuevoProducto newProducto)
         {
-            Entities.Producto producto = new Entities.Producto(newProducto.NombreProducto, newProducto.DescripcionProducto, newProducto.IdCategoria, newProducto.PrecioProducto, newProducto.ImagenProducto);
+            string imgPath = ProcessImg(newProducto.ImagenProducto);
+
+            Entities.Producto producto = new Entities.Producto(newProducto.NombreProducto, newProducto.DescripcionProducto, newProducto.IdCategoria, newProducto.PrecioProducto, imgPath);
             _repository.Insert(producto);
             _repository.Save();
             return true;
@@ -57,6 +63,23 @@ namespace Proyecto.Application.Services
             _repository.Delete(producto);
             _repository.Save();
             return true;
+        }
+
+        public string ProcessImg(IFormFile imageFile)
+        {
+            string filename = "";
+            if (imageFile != null)
+            {
+                // Logica para guardar la ruta del folder wwwroot/images
+                string uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                filename = Guid.NewGuid().ToString() + "_" + imageFile.FileName;
+                string filepath = Path.Combine(uploadFolder, filename);
+
+                //Guarda la imagen
+                imageFile.CopyTo(new FileStream(filepath, FileMode.Create));
+
+            }
+            return filename;
         }
     }
 }

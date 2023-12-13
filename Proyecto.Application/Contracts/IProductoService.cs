@@ -1,4 +1,5 @@
-﻿using Proyecto.Domain.DTOs.Productos;
+﻿using Microsoft.AspNetCore.Http;
+using Proyecto.Domain.DTOs.Productos;
 using Proyecto.Domain.InputModels.Producto;
 using System;
 using System.Collections.Generic;
@@ -19,5 +20,7 @@ namespace Proyecto.Application.Contracts
         bool Update(ProductoExistente productoExistente);
 
         bool Delete(int id);
+
+        string ProcessImg(IFormFile imageFile);
     }
 }

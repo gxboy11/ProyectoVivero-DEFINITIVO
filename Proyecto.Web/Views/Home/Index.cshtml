@@ -16,11 +16,11 @@
     @foreach (var Producto in Model)
     {
         <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="@Producto.ImagenProducto" alt="Card image cap">
+            <img class="card-img-top" src="~/images/@Producto.ImagenProducto" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">@Producto.NombreProducto</h5>
                 @* <p class="card-text">@Producto.DescripcionProducto</p> *@
-                <p class="card-text">@Producto.IdCategoria</p>
+                <p class="card-text">@Producto.PrecioProducto</p>
             </div>
             @* <ul class="list-group list-group-flush">
         @* <li class="list-group-item">Precio: @Producto.PrecioProducto</li>
@@ -34,7 +34,7 @@
                         data-name="@Producto.NombreProducto"
                         data-desc="@Producto.DescripcionProducto"
                         data-precio=" Precio: @Producto.PrecioProducto"
-                        data-image="@Producto.ImagenProducto">
+                        data-image="~/images/@Producto.ImagenProducto">
                     Ver Más
                 </button>
             </div>

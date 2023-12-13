@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -31,6 +32,6 @@ namespace Proyecto.Domain.InputModels.Producto
 
         [Required]
         [DisplayName("Imagen Producto")]
-        public string ImagenProducto { get; set; }
+        public IFormFile ImagenProducto { get; set; }
     }
 }

@@ -10,7 +10,7 @@
             <h1><i class="fa-solid fa-person-circle-plus"></i> Add Productos</h1>
         </div>
     </div>
-    <form method="post">
+    <form method="post" EncType="multipart/form-data">
         <fieldset>
             <div class="table">
                 <div class="row">
@@ -60,12 +60,12 @@
                         <input asp-for="@Model.ImagenProducto" class="form-control">
                         <span asp-validation-for="@Model.ImagenProducto" class="text-danger form-text"></span>
                     </div>
-                <div class="row">
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-outline-success"><i class="fa-solid fa-user-shield"></i>Agregar</button>
-                        <a asp-asp-controller="Productos" asp-action="Index" class="btn btn-outline-danger">Cancelar</a>
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-outline-success"><i class="fa-solid fa-user-shield"></i>Agregar</button>
+                            <a asp-asp-controller="Productos" asp-action="Index" class="btn btn-outline-danger">Cancelar</a>
+                        </div>
                     </div>
-                </div>
         </fieldset>
     </form>
 </div>

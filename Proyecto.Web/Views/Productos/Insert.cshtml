@@ -39,10 +39,13 @@
                         <label asp-for="@Model.IdCategoria" class="form-label"></label>
                     </div>
                     <div class="col-9">
-                        <input asp-for="@Model.IdCategoria" class="form-control">
+                        <select asp-for="@Model.IdCategoria" asp-items="@(new SelectList(ViewBag.Categorias, "IdCategoria", "NombreCategoria"))" class="form-control">
+                            <option value="">Seleccione una categoría</option>
+                        </select>
                         <span asp-validation-for="@Model.IdCategoria" class="text-danger form-text"></span>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-3">
                         <label asp-for="@Model.PrecioProducto" class="form-label"></label>

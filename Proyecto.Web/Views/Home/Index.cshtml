@@ -19,14 +19,8 @@
             <img class="card-img-top" src="~/images/@Producto.ImagenProducto" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">@Producto.NombreProducto</h5>
-                @* <p class="card-text">@Producto.DescripcionProducto</p> *@
                 <p class="card-text">@Producto.PrecioProducto</p>
             </div>
-            @* <ul class="list-group list-group-flush">
-        @* <li class="list-group-item">Precio: @Producto.PrecioProducto</li>
-        <li class="list-group-item">Categoría: @Producto.IdCategoria</li>
-
-        </ul> *@
             <div class="card-body">
 
                 <button style="font-weight:bold" type="button" class="btn btn-default passDatos"
@@ -34,7 +28,7 @@
                         data-name="@Producto.NombreProducto"
                         data-desc="@Producto.DescripcionProducto"
                         data-precio=" Precio: @Producto.PrecioProducto"
-                        data-image="~/images/@Producto.ImagenProducto">
+                        data-image="@Url.Content("~/images/" + Producto.ImagenProducto)">
                     Ver Más
                 </button>
             </div>
@@ -56,9 +50,6 @@
                 <h5 id="txtPrecio"></h5>
                 <br /><br />
                 <img id="txtImage" src="" style="width:100%" height="500">
-                @* <iframe id="txtVideo" style="width:400%" height="500"
-                src="">
-                </iframe> *@
                 <br /><br />
                 <br /><br />
                 <button type="button" class="btn btn-success" style="width:50%" left="50%">Comprar</button>

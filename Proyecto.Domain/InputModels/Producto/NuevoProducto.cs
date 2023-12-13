@@ -22,9 +22,8 @@ namespace Proyecto.Domain.InputModels.Producto
         public string DescripcionProducto { get; set; }
 
         [Required]
-        [StringLength(20)]
         [DisplayName("Categoria")]
-        public string IdCategoria { get; set; }
+        public int? IdCategoria { get; set; }
 
         [Required]
         [DisplayName("Precio Producto")]

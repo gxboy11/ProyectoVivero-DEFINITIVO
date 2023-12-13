@@ -8,7 +8,7 @@ namespace Proyecto.Domain.DTOs.Productos
 {
     public class Producto
     {
-        public Producto(int idProducto, string nombreProducto, string descripcionProducto, string idCategoria, string precioProducto, string imagenProducto)
+        public Producto(int idProducto, string nombreProducto, string descripcionProducto, int? idCategoria, string precioProducto, string imagenProducto)
         {
             IdProducto = idProducto;
             NombreProducto = nombreProducto;
@@ -24,7 +24,7 @@ namespace Proyecto.Domain.DTOs.Productos
 
         public string DescripcionProducto { get; private set; }
 
-        public string IdCategoria { get; private set; }
+        public int? IdCategoria { get; private set; }
 
         public string PrecioProducto { get; private set; }
 
@@ -34,12 +34,11 @@ namespace Proyecto.Domain.DTOs.Productos
         public bool HasChanged { get; private set; }
 
 
-        public void Update(string nombreProducto, string descripcionProducto, string idCategoria, string precioProducto, string imagenProducto)
+        public void Update(string nombreProducto, string descripcionProducto, int? idCategoria, string precioProducto, string imagenProducto)
         {
             HasChanged =
                 !nombreProducto.Equals(NombreProducto, StringComparison.OrdinalIgnoreCase) &&
                 !descripcionProducto.Equals(DescripcionProducto, StringComparison.OrdinalIgnoreCase) &&
-                !idCategoria.Equals(IdCategoria, StringComparison.OrdinalIgnoreCase) &&
                 !precioProducto.Equals(PrecioProducto, StringComparison.OrdinalIgnoreCase) &&
                 !imagenProducto.Equals(ImagenProducto, StringComparison.OrdinalIgnoreCase);
 

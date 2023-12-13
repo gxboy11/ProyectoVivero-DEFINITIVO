@@ -14,7 +14,7 @@ namespace Proyecto.Domain.InputModels.Producto
 
         public string DescripcionProducto { get; set; }
 
-        public string IdCategoria { get; set; }
+        public int? IdCategoria { get; set; }
 
         public string PrecioProducto { get; set; }
 

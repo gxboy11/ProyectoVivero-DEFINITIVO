@@ -1,16 +1,19 @@
 ﻿using Proyecto.Application.Contracts;
 using Proyecto.Domain.InputModels.Producto;
 using Microsoft.AspNetCore.Mvc;
+using Proyecto.Application.Contracts.Repositories;
 
 namespace Proyecto.Web.Controllers
 {
     public class ProductosController : Controller
     {
         private readonly IProductoService _service;
+        private readonly ICategoriaService _categoriaService;
 
-        public ProductosController(IProductoService service)
+        public ProductosController(IProductoService service, ICategoriaService _categoriaService)
         {
             this._service = service;
+            this._categoriaService = _categoriaService;
         }
 
         public IActionResult Index()
@@ -22,6 +25,8 @@ namespace Proyecto.Web.Controllers
         [HttpGet]
         public IActionResult Insert()
         {
+            var categorias = _categoriaService.List();
+            ViewBag.Categorias = categorias;
             return View(new NuevoProducto());
         }
 

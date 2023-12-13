@@ -1,0 +1,57 @@
+﻿@model List<Categoria>
+@{
+    ViewData["Title"] = "Categorias";
+}
+
+<div class="container">
+    <h1 class="mt-4"><i class="bi bi-person"></i> Categorias</h1>
+    <a asp-controller="Categorias" asp-action="Insert" class="btn btn-success mb-3">
+        <i class="bi bi-person-plus"></i> Agregar Categoria
+    </a>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Categoria in Model)
+            {
+                <tr>
+                    <td>@Categoria.NombreCategoria</td>
+                    <td>@Categoria.DescripcionCategoria</td>
+        
+                    <td>
+                        <button type="button" class="btn btn-primary">
+                            <i class="bi bi-pencil"></i> Editar
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="Delete(@Categoria.IdCategoria)">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    function Delete(id) {
+        $.ajax({
+            url: "/api/v1/categorias/delete/" + id,
+            method: "DELETE",
+            dataType: "json",
+            contentType: "application/json"
+        }).done(function (response) {
+            if (response.success) {
+                toastr.success("La categoria ha sido eliminado correctamente");
+                location.reload(); // Actualizar la página después de eliminar
+            }
+            else {
+                toastr.error(response.errorMessage);
+            }
+        });
+    }
+</script>

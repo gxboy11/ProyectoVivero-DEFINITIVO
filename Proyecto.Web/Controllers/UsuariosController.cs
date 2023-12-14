@@ -1,5 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Proyecto.Application.Contracts;
+using Proyecto.Application.Contracts.Contexts;
+using Proyecto.Domain.EntityModels.Carritos;
+using Proyecto.Domain.EntityModels.Productos;
+using Proyecto.Domain.InputModels.Producto;
 using Proyecto.Domain.InputModels.Usuarios;
 
 namespace Proyecto.Web.Controllers
@@ -10,6 +16,9 @@ namespace Proyecto.Web.Controllers
 
         private readonly IColaboradorService _colaborador;
         private readonly IClienteService _cliente;
+        private readonly IApplicationDbContext _context;
+
+        private static List<int> _inMemoryCart = new List<int>();
 
         public UsuariosController(IUsuarioService service, IColaboradorService colaborador, IClienteService cliente)
         {
@@ -67,6 +76,29 @@ namespace Proyecto.Web.Controllers
             return View(newUser);
         }
 
+        [HttpPost]
+        public ActionResult AddToCart(int productId)
+        {
+            if (ModelState.IsValid)
+            {
+                int userId = HttpContext.Session.GetInt32("idUser").Value;
+
+                _service.AddToCart(userId, productId);
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ViewCart(int userId)
+        {
+            var productosEnCarrito = _service.GetUserCart(userId);
+
+            // Corrige la creación de la lista de Carrito
+            var carritos = productosEnCarrito.Select(p => new Carrito(userId, p.IdProducto)).ToList();
+
+            return View(carritos);
+        }
 
         [HttpDelete]
         [Route("/api/v1/usuarios/delete/{id}")]

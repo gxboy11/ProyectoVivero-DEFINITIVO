@@ -25,6 +25,7 @@
 
                 <button style="font-weight:bold" type="button" class="btn btn-default passDatos"
                         data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                        data-id="@Producto.IdProducto"
                         data-name="@Producto.NombreProducto"
                         data-desc="@Producto.DescripcionProducto"
                         data-precio=" Precio: @Producto.PrecioProducto"
@@ -45,14 +46,16 @@
             </div>
             <div class="modal-body">
 
-
-                <h5 id="txtDesc"></h5>
-                <h5 id="txtPrecio"></h5>
-                <br /><br />
-                <img id="txtImage" src="" style="width:100%" height="500">
-                <br /><br />
-                <br /><br />
-                <button type="button" class="btn btn-success" style="width:50%" left="50%">Comprar</button>
+                <form asp-controller="Usuarios" asp-action="AddToCart" method="post">
+                    <input type="hidden" id="productId" name="productId" />
+                    <h5 id="txtDesc"></h5>
+                    <h5 id="txtPrecio"></h5>
+                    <br /><br />
+                    <img id="txtImage" src="" style="width:100%" height="500">
+                    <br /><br />
+                    <br /><br />
+                    <button type="submit" class="btn btn-success">Agregar a Carrito</button>
+                </form>
 
             </div>
         </div>
@@ -64,11 +67,10 @@
 <script>
 
     $(".passDatos").click(function () {
+        $("#productId").val($(this).attr('data-id'));
         $("#pTitulo").text($(this).attr('data-name'));
         $("#txtDesc").text($(this).attr('data-desc'));
         $("#txtPrecio").text($(this).attr('data-precio'));
         $("#txtImage").attr("src", $(this).attr('data-image'));
     })
-
-
 </script>

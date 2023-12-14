@@ -1,4 +1,5 @@
-﻿using Proyecto.Domain.EntityModels.Categorias;
+﻿using Proyecto.Domain.EntityModels.Carritos;
+using Proyecto.Domain.EntityModels.Categorias;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -33,6 +34,7 @@ namespace Proyecto.Domain.EntityModels.Productos
         public string PrecioProducto { get; private set; }
 
         public string ImagenProducto { get; private set; }
+
 
         /// <summary>
         /// Llaves Foraneas

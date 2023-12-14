@@ -12,6 +12,7 @@ using Proyecto.Domain.EntityModels.Proveedores;
 using Proyecto.Domain.EntityModels.Facturaciones;
 using Proyecto.Domain.EntityModels.Productos;
 using Proyecto.Domain.EntityModels.Usuarios;
+using Proyecto.Domain.EntityModels.Carritos;
 
 namespace Proyecto.Persistence.Contexts
 {
@@ -23,6 +24,17 @@ namespace Proyecto.Persistence.Contexts
 
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Carrito>()
+                     .HasOne(c => c.Usuario)
+                     .WithMany(u => u.Carrito)
+    .HasForeignKey(c => c.UsuarioId)
+    .IsRequired();
+
+            base.OnModelCreating(modelBuilder);
+        }
+
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Colaborador> Colaboradores { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
@@ -31,6 +43,7 @@ namespace Proyecto.Persistence.Contexts
         public DbSet<Facturacion> Facturaciones { get; set; }
 
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Carrito> Carrito { get; set; }
 
         public void Save()
         {

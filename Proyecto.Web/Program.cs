@@ -3,9 +3,9 @@ using Proyecto.Persistence;
 using Proyecto.Infrastructure;
 using Proyecto.Web;
 using Serilog;
+using Proyecto.Domain.EntityModels.Carritos;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services
     .AddAplication(builder.Configuration)
     .AddPersistence(builder.Configuration)

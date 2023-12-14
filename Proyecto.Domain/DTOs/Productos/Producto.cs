@@ -1,5 +1,7 @@
+using Proyecto.Domain.EntityModels.Carritos;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,8 +32,9 @@ namespace Proyecto.Domain.DTOs.Productos
 
         public string ImagenProducto { get; private set; }
 
-      
         public bool HasChanged { get; private set; }
+
+        public int ParentId { get; private set; }
 
 
         public void Update(string nombreProducto, string descripcionProducto, int? idCategoria, string precioProducto, string imagenProducto)

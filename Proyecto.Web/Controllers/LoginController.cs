@@ -28,8 +28,19 @@ namespace Proyecto.Web.Controllers
 
                 if (_service.IsCredentialValid(model.NombreUsuario, model.PasswordUsuario))
                 {
+
                     HttpContext.Session.SetInt32("idUser", userId);
                     HttpContext.Session.SetString("username", model.NombreUsuario);
+
+                    if (model.NombreUsuario == "Admin")
+                    {
+                        HttpContext.Session.SetString("rol", "Admin");
+
+                    }
+                    else
+                    {
+                        HttpContext.Session.SetString("rol", "user");
+                    }
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -38,6 +49,15 @@ namespace Proyecto.Web.Controllers
                 }
             }
             return View("Index");
+        }
+
+        public IActionResult CerrarSesion()
+        {
+            HttpContext.Session.Remove("username");
+            HttpContext.Session.Remove("idUser");
+            HttpContext.Session.Remove("rol");
+
+            return RedirectToAction("Index", "Login");
         }
     }
 }

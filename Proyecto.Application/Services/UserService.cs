@@ -10,6 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Proyecto.Application.Contracts.Contexts;
+using Proyecto.Domain.InputModels.Producto;
+using System.ComponentModel.DataAnnotations;
+using Proyecto.Domain.EntityModels.Productos;
+using Proyecto.Domain.EntityModels.Carritos;
 
 namespace Proyecto.Application.Services
 {
@@ -38,7 +42,7 @@ namespace Proyecto.Application.Services
 
         public bool Insert(NuevoUsuario newUsuario)
         {
-            Entities.Usuario user = new Entities.Usuario(newUsuario.NombreUsuario, newUsuario.PasswordUsuario, newUsuario.IdCliente, newUsuario.IdColaborador, newUsuario.IsAdmin);
+            Entities.Usuario user = new Entities.Usuario(newUsuario.NombreUsuario, newUsuario.PasswordUsuario, newUsuario.IdCliente, newUsuario.IdColaborador, newUsuario.IsAdmin, 0);
             _repository.Insert(user);
             _repository.Save();
             return true;
@@ -78,6 +82,7 @@ namespace Proyecto.Application.Services
 
         public int GetUserByCredentials(string username, string password)
         {
+
             var user = _context.Usuarios.SingleOrDefault(u => u.NombreUsuario == username && u.PasswordUsuario == password);
 
             if (user != null)
@@ -88,6 +93,75 @@ namespace Proyecto.Application.Services
             return -1;
         }
 
+        public bool AddToCart(int userId, int productId)
+        {
+            var user = _repository.Get(s => s.IdUsuario == userId);
+
+            if (user != null)
+            {
+                var productToAdd = _context.Productos.SingleOrDefault(p => p.IdProducto == productId);
+
+                if (productToAdd != null)
+                {
+                    var existingRelation = user.Carrito.SingleOrDefault(up => up.ProductoId == productId);
+
+                    if (existingRelation == null)
+                    {
+                        // Si no existe, crear una nueva relación con la cantidad proporcionada
+                        var newRelation = new Carrito(userId, productId);
+
+                        user.Carrito.Add(newRelation);
+                    }
+
+                    _repository.Update(user);
+                    _repository.Save();
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
+
+        public bool DeleteFromCart(int userId, int productId)
+        {
+            Entities.Usuario user = _repository.Get(s => s.IdUsuario == userId);
+
+            if (user != null)
+            {
+                // Buscar el producto
+                var productToDelete = user.Carrito.SingleOrDefault(p => p.Id == productId);
+
+                if (productToDelete != null)
+                {
+                    user.Carrito.Remove(productToDelete);
+                }
+
+                _repository.Update(user);
+                _repository.Save();
+                return true;
+            }
+            return false;
+        }
+
+        public List<Producto> GetUserCart(int userId)
+        {
+            var user = _repository.Get(s => s.IdUsuario == userId);
+
+            if (user != null && user.Carrito != null && user.Carrito.Any())
+            {
+                var productosEnCarrito = user.Carrito.Select(up => up.Producto).ToList();
+                return productosEnCarrito;
+            }
+
+            return new List<Producto>();
+        }
+
     }
+
+
+
 }
 

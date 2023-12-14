@@ -1,4 +1,5 @@
 ﻿using Proyecto.Domain.DTOs.Clientes;
+using Proyecto.Domain.EntityModels.Carritos;
 using Proyecto.Domain.EntityModels.Cliente;
 using System;
 using System.Collections.Generic;
@@ -12,13 +13,14 @@ namespace Proyecto.Domain.EntityModels.Usuarios
 {
     public class Usuario : Entity
     {
-        public Usuario(string NombreUsuario, string PasswordUsuario, int? IdCliente, int? IdColaborador, bool IsAdmin)
+        public Usuario(string NombreUsuario, string PasswordUsuario, int? IdCliente, int? IdColaborador, bool IsAdmin, int ParentId = 0)
         {
             this.NombreUsuario = NombreUsuario;
             this.PasswordUsuario = PasswordUsuario;
             this.IdCliente = IdCliente;
             this.IdColaborador = IdColaborador;
             this.IsAdmin = IsAdmin;
+            this.ParentId = ParentId;
         }
 
         [Key]
@@ -34,25 +36,29 @@ namespace Proyecto.Domain.EntityModels.Usuarios
 
         public bool IsAdmin { get; private set; }
 
+        public int ParentId { get; private set; }
 
         /// <summary>
         /// Llaves Foraneas
         /// </summary>
+
         [ForeignKey(nameof(IdCliente))]
         public Cliente.Cliente Cliente { get; set; }
 
         [ForeignKey(nameof(IdColaborador))]
         public Colaboradores.Colaborador Colaborador { get; set; }
 
+        [ForeignKey(nameof(ParentId))]
+        public ICollection<Carrito> Carrito { get; set; } = new List<Carrito>();
 
-
-        public void Update(string NombreUsuario, string PasswordUsuario, int? IdCliente, int? IdColaborador, bool IsAdmin)
+        public void Update(string NombreUsuario, string PasswordUsuario, int? IdCliente, int? IdColaborador, bool IsAdmin, int ParentId = 0)
         {
             this.NombreUsuario = NombreUsuario;
             this.PasswordUsuario = PasswordUsuario;
             this.IdCliente = IdCliente;
             this.IdColaborador = IdColaborador;
             this.IsAdmin = IsAdmin;
+            this.ParentId = ParentId;
         }
     }
 }

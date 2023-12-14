@@ -2,6 +2,7 @@
 using Proyecto.Domain.InputModels.Producto;
 using Microsoft.AspNetCore.Mvc;
 using Proyecto.Application.Contracts.Repositories;
+using Proyecto.Domain.DTOs.Productos;
 
 namespace Proyecto.Web.Controllers
 {
@@ -9,6 +10,8 @@ namespace Proyecto.Web.Controllers
     {
         private readonly IProductoService _service;
         private readonly ICategoriaService _categoriaService;
+
+        private static List<Producto> Carrito = new List<Producto>();
 
         public ProductosController(IProductoService service, ICategoriaService _categoriaService)
         {

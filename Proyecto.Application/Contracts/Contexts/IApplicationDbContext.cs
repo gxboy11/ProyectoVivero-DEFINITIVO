@@ -10,6 +10,8 @@ using Proyecto.Domain.EntityModels.Categorias;
 using Proyecto.Domain.EntityModels.Facturaciones;
 using Proyecto.Domain.EntityModels.Proveedores;
 using Proyecto.Domain.EntityModels.Usuarios;
+using Proyecto.Domain.EntityModels.Productos;
+using Proyecto.Domain.EntityModels.Carritos;
 
 namespace Proyecto.Application.Contracts.Contexts
 {
@@ -21,6 +23,8 @@ namespace Proyecto.Application.Contracts.Contexts
         DbSet<Facturacion> Facturaciones { get; set; }
         DbSet<Proveedor> Proveedores { get; set; }
         DbSet<Usuario> Usuarios { get; set; }
+        DbSet<Producto> Productos { get; set; }
+        DbSet<Carrito> Carrito { get; set; }
 
 
         void Save();

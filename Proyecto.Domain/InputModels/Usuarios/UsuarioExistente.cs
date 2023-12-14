@@ -20,5 +20,7 @@ namespace Proyecto.Domain.InputModels.Usuarios
 
         public bool IsAdmin { get; set; }
 
+        public int ParentId { get; set; }
+
     }
 }

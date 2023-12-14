@@ -1,0 +1,42 @@
+﻿@using Proyecto.Domain.EntityModels.Carritos;
+@model List<Carrito>
+
+@{
+    ViewData["Title"] = "Carrito de Compras";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h2>Carrito de Compras</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Producto.NombreProducto</td>
+                        <td>₡@item.Producto.PrecioProducto</td>
+                        <td>
+                            <form method="post" asp-action="RemoveFromCart">
+                                <input type="hidden" name="productId" value="@item.Producto.IdProducto" />
+                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <a asp-controller="Home" asp-action="Exito" class="btn btn-success mb-3">
+            <i class="bi bi-person-plus"></i> Realizar Compra
+        </a>
+    </div>
+</div>

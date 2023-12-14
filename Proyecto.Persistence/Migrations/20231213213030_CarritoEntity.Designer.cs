@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Proyecto.Persistence.Contexts;
 
@@ -11,9 +12,11 @@ using Proyecto.Persistence.Contexts;
 namespace Proyecto.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231213213030_CarritoEntity")]
+    partial class CarritoEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,14 +33,10 @@ namespace Proyecto.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ParentId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ProductoId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UsuarioId")
-                        .IsRequired()
+                    b.Property<int>("UsuarioId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -249,9 +248,6 @@ namespace Proyecto.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ParentId")
-                        .HasColumnType("int");
-
                     b.Property<string>("PasswordUsuario")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -268,7 +264,7 @@ namespace Proyecto.Persistence.Migrations
             modelBuilder.Entity("Proyecto.Domain.EntityModels.Carritos.Carrito", b =>
                 {
                     b.HasOne("Proyecto.Domain.EntityModels.Productos.Producto", "Producto")
-                        .WithMany()
+                        .WithMany("Carrito")
                         .HasForeignKey("ProductoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -306,6 +302,11 @@ namespace Proyecto.Persistence.Migrations
                     b.Navigation("Cliente");
 
                     b.Navigation("Colaborador");
+                });
+
+            modelBuilder.Entity("Proyecto.Domain.EntityModels.Productos.Producto", b =>
+                {
+                    b.Navigation("Carrito");
                 });
 
             modelBuilder.Entity("Proyecto.Domain.EntityModels.Usuarios.Usuario", b =>
